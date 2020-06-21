@@ -1,17 +1,33 @@
 <template>
     <div id="app">
-        <img alt="Vue logo" src="./assets/logo.png" />
-        <HelloWorld msg="Hello World Welcome to Vue Cli" />
+        <h1 :class="classObject">{{ value }}</h1>
+        <h1 :style="{ fontSize: (value * 10) + 'px' }">{{value}}</h1>
+        <button @click="value++">+</button>
+        <button @click="value--">-</button>
+        <button @click="error = !error">Error</button>
+        <button @click="warning = !warning">Warning</button>
     </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue"
-
 export default {
     name: "App",
-    components: {
-        HelloWorld,
+    components: {},
+    data: function() {
+        return {
+            value: 1,
+            error: false,
+            warning: false,
+        }
+    },
+    computed: {
+        classObject: function() {
+            return {
+                "has-error": this.value > 5,
+                "has-green": this.value <= 5,
+                "yellow-warning": this.warning,
+            }
+        },
     },
 }
 </script>
@@ -24,5 +40,14 @@ export default {
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+}
+.has-error {
+    background-color: red;
+}
+.yellow-warning {
+    background-color: yellow;
+}
+.has-green {
+    background-color: green;
 }
 </style>
